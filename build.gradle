@@ -1,0 +1,56 @@
+plugins {
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+
+
+dependencies {
+    def javafxVersion = '21'
+
+    implementation "org.openjfx:javafx-controls:$javafxVersion"
+    implementation "org.openjfx:javafx-fxml:$javafxVersion"
+    implementation "org.openjfx:javafx-graphics:$javafxVersion"
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+}
+
+application {
+    mainClass = 'org.example.PERG'
+
+    applicationDefaultJvmArgs = [
+        '--enable-native-access=ALL-UNNAMED',
+        '--add-opens=java.base/java.lang=ALL-UNNAMED',
+        '--add-opens=java.base/sun.misc=ALL-UNNAMED'
+    ]
+}
+
+test {
+    useJUnitPlatform()
+}
+
+def javafxLibPath = 'C:/Users/dell/Downloads/javafx-sdk-24.0.1/lib'
+
+run {
+    jvmArgs = [
+        '--module-path', javafxLibPath,
+        '--add-modules', 'javafx.controls,javafx.fxml'
+    ]
+}
+
+compileJava {
+    options.compilerArgs += [
+        '--module-path', javafxLibPath,
+        '--add-modules', 'javafx.controls,javafx.fxml'
+    ]
+}
+
+compileTestJava {
+    options.compilerArgs += [
+        '--module-path', javafxLibPath,
+        '--add-modules', 'javafx.controls,javafx.fxml'
+    ]
+}
